@@ -20,9 +20,10 @@ package io.openmessaging;
 import io.openmessaging.consumer.MessageListener;
 import io.openmessaging.consumer.PullConsumer;
 import io.openmessaging.consumer.PushConsumer;
-import io.openmessaging.consumer.StreamingConsumer;
+import io.openmessaging.consumer.ShardingConsumer;
 import io.openmessaging.exception.OMSRuntimeException;
 import io.openmessaging.producer.Producer;
+import io.openmessaging.stream.Stream;
 
 /**
  * The {@code MessagingAccessPoint} obtained from {@link OMS} is capable of creating {@code
@@ -125,24 +126,44 @@ public interface MessagingAccessPoint extends ServiceLifecycle {
     PullConsumer createPullConsumer(KeyValue attributes);
 
     /**
-     * Creates a new {@code StreamingConsumer} for the specified {@code MessagingAccessPoint}.
+     * Creates a new {@code ShardingConsumer} for the specified {@code MessagingAccessPoint}.
+     *
+     * @return the created {@code ShardingConsumer}
+     * @throws OMSRuntimeException if the {@code MessagingAccessPoint} fails to handle this request
+     * due to some internal error
+     */
+    ShardingConsumer createShardingConsumer();
+
+    /**
+     * Creates a new {@code ShardingConsumer} for the specified {@code MessagingAccessPoint} with some preset
+     * attributes.
+     *
+     * @param attributes the preset attributes
+     * @return the created {@code ShardingConsumer}
+     * @throws OMSRuntimeException if the {@code MessagingAccessPoint} fails to handle this request
+     * due to some internal error
+     */
+    ShardingConsumer createShardingConsumer(KeyValue attributes);
+
+    /**
+     * Creates a new {@code Stream} for the specified {@code MessagingAccessPoint}.
      *
      * @return the created {@code Stream}
      * @throws OMSRuntimeException if the {@code MessagingAccessPoint} fails to handle this request
      * due to some internal error
      */
-    StreamingConsumer createStreamingConsumer();
+    Stream createStream();
 
     /**
-     * Creates a new {@code StreamingConsumer} for the specified {@code MessagingAccessPoint} with some preset
+     * Creates a new {@code Stream} for the specified {@code MessagingAccessPoint} with some preset
      * attributes.
      *
      * @param attributes the preset attributes
-     * @return the created consumer
+     * @return the created {@code Stream}
      * @throws OMSRuntimeException if the {@code MessagingAccessPoint} fails to handle this request
      * due to some internal error
      */
-    StreamingConsumer createStreamingConsumer(KeyValue attributes);
+    Stream createStream(KeyValue attributes);
 
     /**
      * Gets a lightweight {@code ResourceManager} instance from the specified {@code MessagingAccessPoint}.

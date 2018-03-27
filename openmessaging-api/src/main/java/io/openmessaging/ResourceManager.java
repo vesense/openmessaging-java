@@ -178,12 +178,12 @@ public interface ResourceManager extends ServiceLifecycle {
     List<String> listRoutings() throws OMSResourceNotExistException;
 
     /**
-     * Gets the stream list behind the specified queue.
+     * Gets the shard list behind the specified queue.
      *
      * @param queueName the queue name
-     * @return the list of all streams
+     * @return the list of all shards
      */
-    List<String> listStreams(String queueName);
+    List<String> listShards(String queueName);
 
     /**
      * Updates some system headers of a message in the configured namespace.
